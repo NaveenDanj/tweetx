@@ -2,10 +2,10 @@ import { Outlet } from 'react-router-dom';
 
 function AppLayout() {
   return (
-    <div className='tw-w-full tw-h-[100vh] '>
+    <div className='tw-w-full tw-h-[100vh]'>
 
       <div className='tw-w-full  tw-flex tw-justify-center tw-p-5 tw-border-1 tw-border-white/[.1 ] tw-shadow-md'>
-        <div className='tw-flex tw-justify-between tw-flex-grow tw-max-w-[90%] md:tw-max-w-[100%]'>
+        <div className='tw-flex tw-justify-between tw-flex-grow tw-max-w-[90%] '>
           <h1 className='tw-text-4xl tw-my-auto tw-font-bold tw-text-[#FF738D]'>TweetX</h1>
 
           <div className='tw-flex tw-gap-10 tw-my-auto sm:tw-mr-64'>
@@ -18,7 +18,7 @@ function AppLayout() {
 
       </div>
 
-      <div className='tw-w-full tw-h-[calc(100vh-80px)] tw-justify-center tw-flex '>
+      <div className='tw-w-full tw-h-[calc(100vh-120px)] tw-p-5 tw-overflow-y-auto tw-justify-center tw-flex '>
         <Outlet />
       </div>
 
