@@ -22,7 +22,7 @@ function Login() {
 
           <div className="tw-w-full tw-mt-5 tw-flex tw-justify-between">
             <label className="tw-my-auto tw-font-semibold tw-cursor-pointer">Forgot Password</label>
-            <button className=" tw-bg-[#FF748D] tw-text-white  tw-p-4 tw-px-12 tw-rounded-[11px] tw-font-bold tw-flex tw-justify-center">Login</button>
+            <button className=" tw-bg-[#FF748D] tw-shadow-lg tw-text-white  tw-p-4 tw-px-12 tw-rounded-[11px] tw-font-bold tw-flex tw-justify-center">Login</button>
           </div>
 
         </div>

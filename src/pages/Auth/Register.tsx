@@ -29,7 +29,7 @@ function Register() {
           </div>
 
           <div className="tw-w-full tw-mt-5 tw-flex tw-justify-end">
-            <button className=" tw-bg-[#FF748D] tw-text-white tw-p-4 tw-px-16 tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">Sign up</button>
+            <button className=" tw-bg-[#FF748D] tw-shadow-lg tw-text-white tw-p-4 tw-px-16 tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">Sign up</button>
           </div>
 
         </div>
