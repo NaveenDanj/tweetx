@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ISignUp } from '../../types/Types';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
-import AuthService from '../../services/Auth/AuthService';
+import AuthService from '../../services/AuthService';
 
 function Register() {
   const [error , setError] = useState('');

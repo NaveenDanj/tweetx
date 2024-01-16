@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import app from '../../config/FirebaseConfig';
-import { ISignIn, ISignUp } from '../../types/Types';
+import app from '../config/FirebaseConfig';
+import { ISignIn, ISignUp } from '../types/Types';
 
 const auth = getAuth(app);
 

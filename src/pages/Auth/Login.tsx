@@ -1,6 +1,6 @@
 import { Alert } from '@mui/material';
 import { useState } from 'react';
-import AuthService from '../../services/Auth/AuthService';
+import AuthService from '../../services/AuthService';
 import { ISignIn } from '../../types/Types';
 import { useNavigate } from 'react-router-dom';
 
