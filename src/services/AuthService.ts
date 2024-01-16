@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../config/FirebaseConfig';
 import { ISignIn, ISignUp } from '../types/Types';
 
@@ -53,6 +53,18 @@ export default {
       };
         
     }
+  },
+
+  checkAuthState : ():Promise<User | null> => {
+    return new Promise( (resolve , reject ) => {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          resolve(user);
+        }else{
+          reject(null);
+        }
+      });
+    });
   },
 
 };

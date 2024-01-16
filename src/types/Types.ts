@@ -9,3 +9,9 @@ export interface ISignUp {
     password: string;
     confirmPassword: string;
 }
+
+export interface IPost {
+    content: string;
+    timestamp: Date;
+    author: string
+}
