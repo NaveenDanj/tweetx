@@ -70,7 +70,7 @@ function Profile() {
         <PostItem />
         <PostItem />
 
-        <div className='tw-w-full tw-flex tw-justify-center'>
+        <div className='tw-w-full tw-flex tw-justify-center tw-my-3 '>
           <button style={{ border: '1px solid rgba(0,0,0,0.5)' }} className="tw-w-[120px] tw-p-3  tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">Load more</button>
         </div>
 
