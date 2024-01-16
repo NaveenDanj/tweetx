@@ -18,7 +18,7 @@ function FeedItem() {
           </div>
 
           <div >
-            <p className='tw-text-[#C6C6C6]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni saepe tempore rerum quo sed laudantium iure, quos molestiae deserunt, tempora, ratione officiis atque porro. Cumque, sequi. Qui quis maxime laboriosam?</p>
+            <p className='tw-text-[#C6C6C6]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni saepe tempore rerum quo sed laudantium iure, quos molestiae deserunt, tempora</p>
           </div>
 
         </div>

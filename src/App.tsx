@@ -4,6 +4,7 @@ import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 import Feed from './pages/App/Feed';
 import AppLayout from './layouts/AppLayout';
+import Users from './pages/App/Users';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
 
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Feed />} />
+          <Route path='/users' element={<Users />} />
         </Route>
 
 
