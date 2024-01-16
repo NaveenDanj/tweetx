@@ -1,6 +1,6 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../../config/FirebaseConfig';
-import { ISignIn } from '../../types/Types';
+import { ISignIn, ISignUp } from '../../types/Types';
 
 const auth = getAuth(app);
 
@@ -23,4 +23,36 @@ export default {
       };
     }
   },
+
+  registerByEmailAndPassword : async (formData: ISignUp) => {
+    try{
+      const user = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+
+      if(!auth.currentUser) return {
+        'success' : false,
+        'error' : 'Registration failed',
+        'user': null,
+      };
+
+      await updateProfile(auth.currentUser , {
+        displayName : formData.name
+      });
+            
+      return {
+        'success' : true,
+        'user' : user.user,
+        'error' : ''
+      };
+
+    }catch(err){
+
+      return {
+        'success' : false,
+        'error' : err,
+        'user': null,
+      };
+        
+    }
+  },
+
 };

@@ -23,10 +23,10 @@ function Login() {
 
     if(!res.success){
       setError(res.error+'');
+      return;
     }
 
-    navigate('/feed');
-
+    navigate('/');
 
   };
   
@@ -35,7 +35,7 @@ function Login() {
 
         
       <div className="tw-w-full tw-mt-10 tw-mb-10">
-        <button style={{ border: '1px solid rgba(0,0,0,0.5)' }} className="tw-w-[220px] tw-p-3 tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">Create Account</button>
+        <button onClick={() => navigate('/auth/register')} style={{ border: '1px solid rgba(0,0,0,0.5)' }} className="tw-w-[220px] tw-p-3 tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">Create Account</button>
       </div>
 
       <form onSubmit={handleSubmit} method='POST' className="tw-flex tw-flex-col tw-py-10 tw-flex-grow">
@@ -46,11 +46,11 @@ function Login() {
         <div className="tw-flex tw-flex-col tw-mt-16 tw-gap-8">
             
           <div className="tw-w-full tw-p-5 tw-bg-[#F9F9F9] tw-rounded-md">
-            <input required onChange={(e) => setFormData({email : e.target.value , password : formData?.password+'' })} value={formData?.email} type="email" placeholder="Email" className="tw-bg-[#F9F9F9]" />
+            <input required onChange={(e) => setFormData((prevData) => ({...prevData , email: e.target.value}))} value={formData.email} type="email" placeholder="Email" className="tw-bg-[#F9F9F9]" />
           </div>
 
           <div className="tw-w-full tw-p-5 tw-bg-[#F9F9F9] tw-rounded-md">
-            <input required onChange={(e) => setFormData({email : formData?.email+'' , password : e.target.value })} value={formData?.password} type="password" placeholder="Password" className="tw-bg-[#F9F9F9]" />
+            <input required onChange={(e) => setFormData((prevData) => ({...prevData , password : e.target.value}))} value={formData?.password} type="password" placeholder="Password" className="tw-bg-[#F9F9F9]" />
           </div>
 
           <div className="tw-w-full tw-mt-5 tw-flex tw-justify-between">

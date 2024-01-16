@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
-import FollowItem from '../../components/FollowItem';
+// import FollowItem from '../../components/FollowItem';
 import PostItem from '../../components/PostItem';
 
 
