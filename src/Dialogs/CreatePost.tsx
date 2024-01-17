@@ -38,7 +38,8 @@ function CreatePost() {
     const formData:IPost = {
       content: content,
       timestamp: new Date(),
-      author: ''
+      author: '',
+      authorName: ''
     };
 
     try{
@@ -91,7 +92,7 @@ function CreatePost() {
                 {error != '' && (<><Alert variant="outlined" className='tw-mt-6' severity="error">{error}</Alert></>)}
 
                 <div className="tw-w-full tw-p-5 tw-mt-6 tw-bg-[#F9F9F9] tw-rounded-md">
-                  <textarea onChange={(e) => setContent(e.target.value)} value={content} required placeholder="What's on your mind..." className="tw-bg-[#F9F9F9] tw-w-full tw-p-2" />
+                  <textarea maxLength={150} onChange={(e) => setContent(e.target.value)} value={content} required placeholder="What's on your mind..." className="tw-bg-[#F9F9F9] tw-w-full tw-p-2" />
                 </div>
 
               </div>

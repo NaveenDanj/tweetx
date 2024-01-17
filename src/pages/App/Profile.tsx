@@ -1,10 +1,13 @@
 import { Avatar } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
-// import FollowItem from '../../components/FollowItem';
-import PostItem from '../../components/PostItem';
+import { useState } from 'react';
+import PostTab from '../../components/PostTab';
 
 
 function Profile() {
+
+  const [currentTab , setCurrentTab] = useState('post');
+
   return (
     <div className="tw-flex tw-flex-col tw-mt-10 tw-flex-grow tw-max-w-[700px] ">
 
@@ -32,17 +35,17 @@ function Profile() {
 
       <div className='tw-flex tw-justify-around tw-w-full'>
 
-        <div style={{ borderTop : '1px solid rgba(0,0,0,0.9)' }} className='tw-relative tw-top-[-13px] tw-flex tw-pt-3 tw-gap-2 tw-mt-3 tw-w-28'>
+        <div onClick={() => setCurrentTab('post')} style={{ borderTop : currentTab == 'post' ? '1px solid rgba(0,0,0,0.9)' : '' }} className='tw-relative tw-top-[-13px] tw-flex tw-pt-3 tw-gap-2 tw-mt-3 tw-w-28'>
           <ImageIcon className='tw-text-[#6E6E6E]' />
           <label className='tw-text-[#6E6E6E]'>Post</label>
         </div>
 
-        <div className='tw-relative tw-top-[-13px] tw-pt-3 tw-flex tw-gap-2 tw-mt-3 tw-w-28'>
+        <div onClick={() => setCurrentTab('followers')} style={{ borderTop : currentTab == 'followers' ? '1px solid rgba(0,0,0,0.9)' : '' }} className='tw-relative tw-top-[-13px] tw-pt-3 tw-flex tw-gap-2 tw-mt-3 tw-w-28'>
           <ImageIcon className='tw-text-[#6E6E6E]' />
           <label className='tw-text-[#6E6E6E]'>Followers</label>
         </div>
 
-        <div className='tw-relative tw-top-[-13px] tw-pt-3 tw-flex tw-gap-2 tw-mt-3 tw-w-28'>
+        <div onClick={() => setCurrentTab('following')} style={{ borderTop : currentTab == 'following' ? '1px solid rgba(0,0,0,0.9)' : '' }} className='tw-relative tw-top-[-13px] tw-pt-3 tw-flex tw-gap-2 tw-mt-3 tw-w-28'>
           <ImageIcon className='tw-text-[#6E6E6E]' />
           <label className='tw-text-[#6E6E6E]'>Following</label>
         </div>
@@ -50,31 +53,8 @@ function Profile() {
 
       </div>
 
-      {/* <div className='tw-w-full tw-mt-12 tw-gap-10 tw-flex tw-flex-col'>
-        <FollowItem />
-        <FollowItem />
-        <FollowItem />
-        <FollowItem />
-        <FollowItem />
-        <FollowItem />
-        <FollowItem />
-        <FollowItem />
-      </div> */}
 
-      <div className='tw-w-full tw-mt-3 tw-gap-1 tw-flex tw-flex-col'>
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-
-        <div className='tw-w-full tw-flex tw-justify-center tw-my-3 '>
-          <button style={{ border: '1px solid rgba(0,0,0,0.5)' }} className="tw-w-[120px] tw-p-3  tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">Load more</button>
-        </div>
-
-      </div>
+      {currentTab == 'post' && <PostTab />}
 
     </div>
   );

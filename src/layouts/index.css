@@ -1,0 +1,14 @@
+
+nav a {
+    color: blue; 
+}
+  
+
+nav a:visited {
+    color: red;
+}
+  
+
+nav .active-link {
+    color: green; 
+}

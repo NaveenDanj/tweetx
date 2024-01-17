@@ -11,7 +11,18 @@ export interface ISignUp {
 }
 
 export interface IPost {
+    id?:string;
     content: string;
     timestamp: Date;
-    author: string
+    author: string;
+    authorName: string;
+}
+
+export interface IUser {
+    id: string;
+    displayName: string;
+    email:string,
+    followers: number;
+    following: number;
+    posts: number
 }

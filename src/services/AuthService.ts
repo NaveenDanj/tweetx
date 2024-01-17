@@ -1,8 +1,10 @@
 import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../config/FirebaseConfig';
-import { ISignIn, ISignUp } from '../types/Types';
+import { ISignIn, ISignUp, IUser } from '../types/Types';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 export default {
   login : async (form:ISignIn) => {
@@ -37,6 +39,17 @@ export default {
       await updateProfile(auth.currentUser , {
         displayName : formData.name
       });
+
+      const docRef = doc(db , 'users' , auth.currentUser.uid);
+
+      await setDoc(docRef , {
+        id: auth.currentUser.uid,
+        displayName : formData.name,
+        email: formData.email,
+        followers: 0,
+        following: 0,
+        posts: 0
+      } as IUser);
             
       return {
         'success' : true,
