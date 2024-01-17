@@ -22,7 +22,12 @@ export interface IUser {
     id: string;
     displayName: string;
     email:string,
-    followers: number;
-    following: number;
-    posts: number
+    followers: UserIDs;
+    following: UserIDs;
+    posts: number;
+    timestamp: Date;
 }
+
+type UserIDs = {
+    [key: string]: boolean;
+};

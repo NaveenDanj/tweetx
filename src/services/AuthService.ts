@@ -1,7 +1,7 @@
 import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../config/FirebaseConfig';
 import { ISignIn, ISignUp, IUser } from '../types/Types';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, collection, doc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, where } from 'firebase/firestore';
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -46,9 +46,10 @@ export default {
         id: auth.currentUser.uid,
         displayName : formData.name,
         email: formData.email,
-        followers: 0,
-        following: 0,
-        posts: 0
+        followers: {},
+        following: {},
+        posts: 0,
+        timestamp : new Date()
       } as IUser);
             
       return {
@@ -79,5 +80,20 @@ export default {
       });
     });
   },
+
+  getUserList: async (lastVisible:QueryDocumentSnapshot<DocumentData, DocumentData> | null) => {
+    const q = query(collection(db , 'users') , where('id' , '!=' , auth.currentUser?.uid) , orderBy('id') , startAfter(lastVisible) , limit(10));
+    const usersSnap = await getDocs(q);
+    const lastVisibleItem = usersSnap.docs[usersSnap.docs.length-1];
+    const users = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as IUser));
+    return {
+      users,
+      lastVisibleItem
+    };
+  },
+
+  getCurrentUser: () => {
+    return auth.currentUser;
+  }
 
 };

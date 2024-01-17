@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { IUser } from '../types/Types';
 
 export default {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,5 +25,10 @@ export default {
     } else {
       return d.format('YYYY/MM/DD');
     }
+  },
+
+  getUserFollowersCount : (user:IUser) => {
+    return Object.keys(user.followers).length;
   }
+
 };

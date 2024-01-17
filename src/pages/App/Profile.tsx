@@ -2,6 +2,7 @@ import { Avatar } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
 import { useState } from 'react';
 import PostTab from '../../components/PostTab';
+import FollowersTab from '../../components/FollowersTab';
 
 
 function Profile() {
@@ -55,6 +56,7 @@ function Profile() {
 
 
       {currentTab == 'post' && <PostTab />}
+      {currentTab == 'followers' && <FollowersTab />}
 
     </div>
   );
