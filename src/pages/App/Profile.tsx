@@ -3,6 +3,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import { useState } from 'react';
 import PostTab from '../../components/PostTab';
 import FollowersTab from '../../components/FollowersTab';
+import FollowingTab from '../../components/FollowingTab';
 
 
 function Profile() {
@@ -57,7 +58,7 @@ function Profile() {
 
       {currentTab == 'post' && <PostTab />}
       {currentTab == 'followers' && <FollowersTab />}
-      {currentTab == 'following' && <FollowersTab />}
+      {currentTab == 'following' && <FollowingTab />}
 
     </div>
   );

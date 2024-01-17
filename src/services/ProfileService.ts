@@ -98,14 +98,12 @@ export default {
 
     const userDoc = userSnap.data() as IUser;
     const followerList = Object.keys(userDoc.followers);
-    console.log('list => ' , followerList);
     const followers:IUser[] = [];
 
 
     for(let i = 0; i < followerList.length; i++){
       const followerRef = doc(db , 'users' , followerList[i]);
       const followerSnap = await getDoc(followerRef);
-      console.log('user => ' , followerSnap.data());
       if(!followerSnap.exists()) continue;
       followers.push(followerSnap.data() as IUser);
     }
@@ -113,6 +111,35 @@ export default {
     return {
       success : true,
       followers: followers
+    };
+
+  },
+
+  getUserFollowing: async (uid:string ) => {
+
+    const docRef = doc(db , 'users' , uid);
+    const userSnap = await getDoc(docRef);
+
+    if(!userSnap.exists()) return {
+      success : false,
+      following: []
+    };
+
+    const userDoc = userSnap.data() as IUser;
+    const followingList = Object.keys(userDoc.following);
+    const following:IUser[] = [];
+
+
+    for(let i = 0; i < followingList.length; i++){
+      const followingRef = doc(db , 'users' , followingList[i]);
+      const followingSnap = await getDoc(followingRef);
+      if(!followingSnap.exists()) continue;
+      following.push(followingSnap.data() as IUser);
+    }
+
+    return {
+      success : true,
+      following: following
     };
 
   }

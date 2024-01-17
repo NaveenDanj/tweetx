@@ -5,7 +5,7 @@ import AuthService from '../services/AuthService';
 import { IUser } from '../types/Types';
 import ProfileService from '../services/ProfileService';
 
-function FollowersTab() {
+function FollowingTab() {
 
   const [loading , setLoading] = useState(false);
   const [users , setUsers] = useState<IUser[]>([]);
@@ -17,9 +17,9 @@ function FollowersTab() {
 
     const fetchData = async () => {
       setLoading(true);
-      const res = await ProfileService.getUserFollowers(user.uid);
+      const res = await ProfileService.getUserFollowing(user.uid);
       setLoading(false);
-      if(res.success) setUsers(res.followers);
+      if(res.success) setUsers(res.following);
     };
 
     fetchData();
@@ -38,4 +38,4 @@ function FollowersTab() {
   );
 }
 
-export default FollowersTab;
+export default FollowingTab;
