@@ -57,6 +57,7 @@ function Profile() {
 
       {currentTab == 'post' && <PostTab />}
       {currentTab == 'followers' && <FollowersTab />}
+      {currentTab == 'following' && <FollowersTab />}
 
     </div>
   );

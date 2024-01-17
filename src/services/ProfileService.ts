@@ -24,6 +24,7 @@ export default {
     
     await updateDoc(docRef , {
       followers: {
+        ...followerDoc.followers,
         [user.uid] : true
       }
     });
@@ -33,8 +34,11 @@ export default {
 
     if(!currentUserSnap.exists()) return false;
 
+    const followingSnap = currentUserSnap.data() as IUser;
+
     await updateDoc(currentUserRef , {
       following: {
+        ...followingSnap.following,
         [uid] : true
       }
     });
@@ -80,8 +84,37 @@ export default {
 
     return true;
 
+  },
+
+  getUserFollowers: async (uid:string ) => {
+
+    const docRef = doc(db , 'users' , uid);
+    const userSnap = await getDoc(docRef);
+
+    if(!userSnap.exists()) return {
+      success : false,
+      followers: []
+    };
+
+    const userDoc = userSnap.data() as IUser;
+    const followerList = Object.keys(userDoc.followers);
+    console.log('list => ' , followerList);
+    const followers:IUser[] = [];
+
+
+    for(let i = 0; i < followerList.length; i++){
+      const followerRef = doc(db , 'users' , followerList[i]);
+      const followerSnap = await getDoc(followerRef);
+      console.log('user => ' , followerSnap.data());
+      if(!followerSnap.exists()) continue;
+      followers.push(followerSnap.data() as IUser);
+    }
+
+    return {
+      success : true,
+      followers: followers
+    };
+
   }
-
-
 
 };

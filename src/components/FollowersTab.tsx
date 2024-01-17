@@ -1,28 +1,40 @@
-import { useState } from 'react';
-import FollowItem from './FollowItem';
+import { useEffect, useState } from 'react';
+import ProfileItem from './ProfileItem';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import AuthService from '../services/AuthService';
+import { IUser } from '../types/Types';
+import ProfileService from '../services/ProfileService';
 
 function FollowersTab() {
 
   const [loading , setLoading] = useState(false);
+  const [users , setUsers] = useState<IUser[]>([]);
+
+  useEffect(() => {
+
+    const user = AuthService.getCurrentUser();
+    if(!user) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      const res = await ProfileService.getUserFollowers(user.uid);
+      setLoading(false);
+      console.log('follower => ' , res);
+      if(res.success) setUsers(res.followers);
+    };
+
+    fetchData();
+
+  },[]);
 
   return (
     <div className='tw-w-full tw-mt-3 tw-gap-1 tw-flex tw-flex-col'>
-      
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-      <FollowItem />
-
-      <div className='tw-w-full tw-flex tw-justify-center tw-my-3 '>
-        <button style={{ border: '1px solid rgba(0,0,0,0.5)' }} className="tw-w-[120px] tw-p-3  tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">{loading ? <AutorenewIcon className="tw-animate-spin" /> : 'Load more'}</button>
-      </div>
-
+      {loading && (
+        <div className='tw-mt-5 tw-w-full tw-flex tw-justify-center'>
+          <AutorenewIcon className="tw-animate-spin" />
+        </div>
+      ) }
+      {users.map( (user:IUser) => <ProfileItem key={user.id} user={user} /> )}
     </div>
   );
 }

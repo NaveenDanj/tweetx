@@ -1,15 +1,15 @@
 import { Avatar } from '@mui/material';
-import { IUser } from '../types/Types';
-import UtilService from '../services/UtilService';
-import ProfileService from '../services/ProfileService';
 import { useEffect, useState } from 'react';
 import AuthService from '../services/AuthService';
+import { IUser } from '../types/Types';
+import ProfileService from '../services/ProfileService';
+import UtilService from '../services/UtilService';
 
-interface UserItemProp {
+interface IUserItemProp {
   user: IUser
 }
 
-function UserItem({user}:UserItemProp) {
+function ProfileItem({user}:IUserItemProp) {
 
   const [isFollow , setIsFollow] = useState<boolean>(false);
 
@@ -38,8 +38,9 @@ function UserItem({user}:UserItemProp) {
     if(res) setIsFollow(false);
   };
 
+
   return (
-    <div style={{ borderBottom : '1px solid rgba(0,0,0,0.1)' }} className='tw-p-5 tw-flex tw-w-full tw-justify-between'>
+    <div className='tw-p-5 tw-flex tw-w-full tw-justify-between'>
 
       <div className='tw-flex tw-gap-5 tw-my-auto'>
         <Avatar sx={{ width : 50 , height : 50 }} />
@@ -51,16 +52,14 @@ function UserItem({user}:UserItemProp) {
 
       </div>
 
-
-      
       {isFollow ? (
         <button onClick={handleUnFollow} className="tw-my-auto tw-text-black tw-w-[100px] tw-p-2 tw-items-center tw-px-5 tw-rounded-[11px] tw-font-semibold tw-flex tw-justify-center">Following</button>
       ) : (
         <button onClick={handleFollow} className="tw-my-auto tw-bg-[#FF748D] tw-shadow-lg tw-text-white tw-w-[100px] tw-p-2 tw-items-center tw-px-5 tw-rounded-[11px] tw-font-bold tw-flex tw-justify-center">Follow</button>
       ) }
-
+      
     </div>
   );
 }
 
-export default UserItem;
+export default ProfileItem;
