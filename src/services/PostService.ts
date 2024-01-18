@@ -1,4 +1,4 @@
-import { DocumentData , QueryDocumentSnapshot, addDoc, collection, doc, getDoc, getDocs, getFirestore, limit, orderBy, query, startAfter, where } from 'firebase/firestore';
+import { DocumentData , QueryDocumentSnapshot, addDoc, collection, doc, getDoc, getDocs, getFirestore, increment, limit, orderBy, query, startAfter, updateDoc, where } from 'firebase/firestore';
 import AuthService from './AuthService';
 import app from '../config/FirebaseConfig';
 import { IPost, IUser } from '../types/Types';
@@ -14,6 +14,15 @@ export default {
     formData.authorName = user.displayName+'';
     const colRef = collection(db , 'posts');
     await addDoc(colRef , formData);
+
+    const userDocRef = doc(db , 'users' , user.uid);
+    
+    await updateDoc(userDocRef , {
+      posts : increment(1)
+    });
+    
+
+
     return true;
   },
 
@@ -25,11 +34,11 @@ export default {
       posts: [],
       lastVisible : null
     };
-    const q = query(collection(db , 'posts'), where('author' , '==' , user.uid) , orderBy('timestamp'), startAfter(lastVisible) , limit(2));
+    const q = query(collection(db , 'posts'), where('author' , '==' , user.uid) , orderBy('timestamp'), startAfter(lastVisible) , limit(10));
     const postsSnap = await getDocs(q);
     const lastVisibleItem = postsSnap.docs[postsSnap.docs.length-1];
     const posts = postsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as IPost));
-
+    
     return {
       success : true,
       posts: posts,
@@ -71,7 +80,7 @@ export default {
     const userPosts = userPostsSnapshot.docs.map(doc => ({ ...doc.data() } as IPost));
 
     return {
-      success : false,
+      success : true,
       posts: userPosts,
       lastVisible: _lastVisible
     };

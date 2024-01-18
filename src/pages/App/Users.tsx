@@ -25,14 +25,19 @@ function Users() {
   },[]);
 
   const loadData = async () => {
-    setLoading(true);
-    const res = await AuthService.getUserList(lastItem);
-    setLoading(false);
 
-    for(let i = 0; i < res.users.length; i++){
-      setUserList((prevArray) => [...prevArray , res.users[i]]);
+    try{
+      setLoading(true);
+      const res = await AuthService.getUserList(lastItem);
+      setLoading(false);
+  
+      for(let i = 0; i < res.users.length; i++){
+        setUserList((prevArray) => [...prevArray , res.users[i]]);
+      }
+      setLastItem(res.lastVisibleItem);
+    }catch(err){
+      setLoading(false);
     }
-    setLastItem(res.lastVisibleItem);
   };
 
 

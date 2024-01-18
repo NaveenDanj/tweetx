@@ -25,15 +25,20 @@ function PostTab() {
   },[]);
   
   const loadData = async () => {
-    setLoading(true);
-    const res = await PostService.fetchUserPosts(lastItem);
-    setLoading(false);
-      
-    for(let i = 0; i < res.posts.length; i++){
-      setFeedItems((prevArray) => [...prevArray , res.posts[i]]);
+    try{
+      setLoading(true);
+      const res = await PostService.fetchUserPosts(lastItem);
+      setLoading(false);
+          
+      for(let i = 0; i < res.posts.length; i++){
+        setFeedItems((prevArray) => [...prevArray , res.posts[i]]);
+      }
+      setLastItem(res.lastVisible);
+      setLoading(false);
+    }catch(_err){
+      setLoading(false);
+
     }
-    setLastItem(res.lastVisible);
-    setLoading(false);
   };
 
 
