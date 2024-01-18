@@ -28,11 +28,14 @@ function PostTab() {
     setLoading(true);
     const res = await PostService.fetchUserPosts(lastItem);
     setLoading(false);
-  
+      
     for(let i = 0; i < res.posts.length; i++){
       setFeedItems((prevArray) => [...prevArray , res.posts[i]]);
     }
     setLastItem(res.lastVisible);
+    console.log(err);        
+    setLoading(false);
+    
   };
 
 

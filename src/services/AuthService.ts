@@ -1,7 +1,7 @@
 import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../config/FirebaseConfig';
 import { ISignIn, ISignUp, IUser } from '../types/Types';
-import { DocumentData, QueryDocumentSnapshot, collection, doc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, where } from 'firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, collection, doc, getDoc, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, where } from 'firebase/firestore';
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -94,6 +94,18 @@ export default {
 
   getCurrentUser: () => {
     return auth.currentUser;
+  },
+
+  getCurrentUserAdditionalData: async () => {
+    if(!auth.currentUser) return null;
+
+    const docRef = doc(db , 'users' , auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if(!docSnap.data()) return null;
+
+    return docSnap.data() as IUser;
+
   }
 
 };

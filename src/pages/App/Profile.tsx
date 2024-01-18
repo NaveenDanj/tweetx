@@ -1,14 +1,32 @@
 import { Avatar } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PostTab from '../../components/PostTab';
 import FollowersTab from '../../components/FollowersTab';
 import FollowingTab from '../../components/FollowingTab';
+import { IUser } from '../../types/Types';
+import AuthService from '../../services/AuthService';
+import UtilService from '../../services/UtilService';
 
 
 function Profile() {
 
   const [currentTab , setCurrentTab] = useState('post');
+  const [user , currentUser] = useState<IUser>();
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const res = await AuthService.getCurrentUserAdditionalData();
+      if(!res) return;
+      currentUser(res);
+      console.log('current user => ' , user);
+    };
+
+    fetchData();
+
+  }, []);
+
 
   return (
     <div className="tw-flex tw-flex-col tw-mt-10 tw-flex-grow tw-max-w-[700px] ">
@@ -20,12 +38,12 @@ function Profile() {
         </div>
 
         <div className='tw-flex tw-flex-col tw-w-full'>
-          <label className='tw-text-2xl tw-my-auto'>Arjun Reddy</label>
+          <label className='tw-text-2xl tw-my-auto'>{user?.displayName}</label>
 
           <div className='tw-flex tw-gap-5 md:tw-gap-10 tw-w-full'>
-            <label>Post : 511</label>
-            <label>Followers : 511</label>
-            <label>Following : 511</label>
+            <label>Post : {user?.posts}</label>
+            <label>Followers : {UtilService.getUserFollowersCount(user)}</label>
+            <label>Following : {UtilService.getUserFollowingCount(user)}</label>
           </div>
 
         </div>

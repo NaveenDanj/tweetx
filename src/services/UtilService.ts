@@ -27,8 +27,14 @@ export default {
     }
   },
 
-  getUserFollowersCount : (user:IUser) => {
+  getUserFollowersCount : (user:IUser | undefined ) => {
+    if(!user) return 0;
     return Object.keys(user.followers).length;
+  },
+
+  getUserFollowingCount: (user:IUser | undefined ) => {
+    if(!user) return 0;
+    return Object.keys(user.following).length;
   }
 
 };
