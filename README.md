@@ -29,3 +29,20 @@ Major dependencies include:
 - Firebase: Backend services for authentication and data storage.
 - Moment.js: Library for handling date and time.
 - Tailwind CSS and MUI: Styling frameworks for a clean and consistent UI.
+
+
+## Design Choices
+In the data modeling process, the project utilizes following and followers maps to store user relationships. This design choice offers the following advantages:
+
+- Efficient User Validation: Checking if a user has already followed another user is streamlined with a simple conditional statement. For example: if (!followerDoc.followers[user.uid]) return false;.
+- Optimized Follower Count: Calculating the number of followers is expedited by using Object.keys(user.following).length rather than querying a collection and calling Firebase.
+
+
+# Client-Side Validation
+Client-side validation is implemented within React components to ensure data integrity and a smooth user experience.
+
+# Pagination
+Pagination is extensively utilized to enhance client-side performance, especially when dealing with large datasets.
+
+# Styling
+Styling is done using Tailwind CSS and MUI, providing a clean and responsive UI.
