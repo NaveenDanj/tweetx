@@ -33,16 +33,14 @@ function PostTab() {
       setFeedItems((prevArray) => [...prevArray , res.posts[i]]);
     }
     setLastItem(res.lastVisible);
-    console.log(err);        
     setLoading(false);
-    
   };
 
 
   return (
     <div className='tw-w-full tw-mt-3 tw-gap-1 tw-flex tw-flex-col'>
       
-      {feedItems.map((_item:IPost , _index:number) => <PostItem key={_index} /> )}
+      {feedItems.map((_item:IPost , _index:number) => <PostItem post={_item} key={_index} /> )}
 
       <div onClick={loadData} className='tw-w-full tw-flex tw-justify-center tw-my-3 '>
         <button style={{ border: '1px solid rgba(0,0,0,0.5)' }} className="tw-w-[120px] tw-p-3  tw-rounded-[15px] tw-font-bold tw-flex tw-justify-center">{loading ? <AutorenewIcon className="tw-animate-spin" /> : 'Load more'}</button>

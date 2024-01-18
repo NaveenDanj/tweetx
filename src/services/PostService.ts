@@ -36,6 +36,10 @@ export default {
       lastVisible: lastVisibleItem
     };
 
+  },
+
+  fetchFeedPosts: async () => {
+    
   }
 
 };
