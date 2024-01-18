@@ -3,22 +3,19 @@ import CreatePost from '../../Dialogs/CreatePost';
 import FeedItem from '../../components/FeedItem';
 import PostService from '../../services/PostService';
 import { IPost } from '../../types/Types';
-import { DocumentData , QueryDocumentSnapshot } from 'firebase/firestore';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 function Feed() {
 
   const [feedItems , setFeedItems] = useState<IPost[]>([]);
-  const [lastItem , setLastItem] = useState<QueryDocumentSnapshot<DocumentData, DocumentData> | null>(null);
   const [loading , setLoading] = useState(false);
 
   useEffect(() => {
 
     const fetchData = async () => {
-      const res = await PostService.fetchUserPosts(lastItem);
+      const res = await PostService.fetchFeedPosts();
       console.log(res);
       setFeedItems(res.posts);
-      setLastItem(res.lastVisible);
     };
 
     fetchData();
@@ -27,14 +24,13 @@ function Feed() {
 
   const loadData = async () => {
     setLoading(true);
-    const res = await PostService.fetchUserPosts(lastItem);
+    const res = await PostService.fetchFeedPosts();
     console.log(res);
     setLoading(false);
 
     for(let i = 0; i < res.posts.length; i++){
       setFeedItems((prevArray) => [...prevArray , res.posts[i]]);
     }
-    setLastItem(res.lastVisible);
   };
 
   return (

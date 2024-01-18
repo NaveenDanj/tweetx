@@ -1,7 +1,7 @@
-import { DocumentData , QueryDocumentSnapshot, addDoc, collection, getDocs, getFirestore, limit, orderBy, query, startAfter, where } from 'firebase/firestore';
+import { DocumentData , QueryDocumentSnapshot, addDoc, collection, doc, getDoc, getDocs, getFirestore, limit, orderBy, query, startAfter, where } from 'firebase/firestore';
 import AuthService from './AuthService';
 import app from '../config/FirebaseConfig';
-import { IPost } from '../types/Types';
+import { IPost, IUser } from '../types/Types';
 
 const db = getFirestore(app);
 
@@ -39,7 +39,44 @@ export default {
   },
 
   fetchFeedPosts: async () => {
+    const user = AuthService.getCurrentUser();
+
+    if(!user) return {
+      success : false,
+      posts: [],
+      lastVisible: null
+    };
+
+    const userDocRef = doc(db , 'users' , user.uid);
+    const userSnap = await getDoc(userDocRef);
+
+    if(!userSnap.exists()) return {
+      success : false,
+      posts: [],
+      lastVisible: null
+    };
+
+    const userData = userSnap.data() as IUser;
+    const followings = Object.keys(userData.following || {});
+
     
+    const userPostsQuery = query(
+      collection(db, 'posts'),
+      where('author', 'in', followings),
+      orderBy('timestamp', 'desc'),
+    );
+        
+    const userPostsSnapshot = await getDocs(userPostsQuery);
+    const _lastVisible = userPostsSnapshot.docs[userPostsSnapshot.docs.length-1];
+    const userPosts = userPostsSnapshot.docs.map(doc => ({ ...doc.data() } as IPost));
+
+    return {
+      success : false,
+      posts: userPosts,
+      lastVisible: _lastVisible
+    };
+
+
   }
 
 };
